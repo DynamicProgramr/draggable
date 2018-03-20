@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     'plugin:shopify/esnext',
+    'plugin:shopify/prettier',
   ],
   env: {
     browser: true,
@@ -9,6 +10,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'class-methods-use-this': 'off',
+    'line-comment-position': 0,
+    'lines-around-comment': 'off',
   },
   globals: {
     jest: false,
