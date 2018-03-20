@@ -1,12 +1,4 @@
-import {
-  createSandbox,
-  triggerEvent,
-  waitForDragDelay,
-  DRAG_DELAY,
-  touchStart,
-  touchMove,
-  touchRelease,
-} from 'helper';
+import {createSandbox, triggerEvent, waitForDragDelay, DRAG_DELAY, touchStart, touchMove, touchRelease} from 'helper';
 
 import TouchSensor from '..';
 
@@ -42,8 +34,7 @@ describe('TouchSensor', () => {
       touchRelease(draggableElement);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('cancels `drag:start` event when canceling sensor event', () => {
@@ -57,8 +48,7 @@ describe('TouchSensor', () => {
       touchRelease(draggableElement);
     }
 
-    expect(dragFlow)
-      .toHaveCanceledSensorEvent('drag:start');
+    expect(dragFlow).toHaveCanceledSensorEvent('drag:start');
   });
 
   test('does not trigger `drag:start` event releasing finger before timeout', () => {
@@ -73,19 +63,13 @@ describe('TouchSensor', () => {
       touchRelease(document.body);
     }
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:start');
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:stop');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('triggers `drag:move` event while moving the finger', () => {
@@ -96,8 +80,7 @@ describe('TouchSensor', () => {
       touchRelease(draggableElement);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:move');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:move');
   });
 
   test('triggers `drag:stop` event when releasing the finger', () => {
@@ -108,8 +91,7 @@ describe('TouchSensor', () => {
       touchRelease(draggableElement);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('does not trigger `drag:start` event when holding finger on none draggable element', () => {
@@ -118,9 +100,7 @@ describe('TouchSensor', () => {
       waitForDragDelay();
     }
 
-    expect(dragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).not.toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('cancels `drag:start` if browser starts scrolling instead', () => {
@@ -130,9 +110,7 @@ describe('TouchSensor', () => {
       waitForDragDelay();
     }
 
-    expect(dragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).not.toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('prevents context menu while dragging', () => {
@@ -140,40 +118,32 @@ describe('TouchSensor', () => {
     let contextMenuEvent = triggerEvent(draggableElement, 'contextmenu');
     waitForDragDelay();
 
-    expect(contextMenuEvent.defaultPrevented)
-      .toBe(true);
+    expect(contextMenuEvent.defaultPrevented).toBe(true);
 
-    expect(contextMenuEvent.stoppedPropagation)
-      .toBe(true);
+    expect(contextMenuEvent.stoppedPropagation).toBe(true);
 
     touchRelease(draggableElement);
     contextMenuEvent = triggerEvent(draggableElement, 'contextmenu');
 
-    expect(contextMenuEvent.defaultPrevented)
-      .toBe(false);
+    expect(contextMenuEvent.defaultPrevented).toBe(false);
 
-    expect(contextMenuEvent.stoppedPropagation)
-      .toBeUndefined();
+    expect(contextMenuEvent.stoppedPropagation).toBeUndefined();
   });
 
   test('prevents scroll on touchmove while dragging', () => {
     let touchMoveEvent = touchMove(draggableElement);
 
-    expect(touchMoveEvent.defaultPrevented)
-      .toBe(false);
+    expect(touchMoveEvent.defaultPrevented).toBe(false);
 
-    expect(touchMoveEvent.stoppedPropagation)
-      .toBeUndefined();
+    expect(touchMoveEvent.stoppedPropagation).toBeUndefined();
 
     touchStart(draggableElement);
     waitForDragDelay();
     touchMoveEvent = touchMove(draggableElement);
 
-    expect(touchMoveEvent.defaultPrevented)
-      .toBe(true);
+    expect(touchMoveEvent.defaultPrevented).toBe(true);
 
-    expect(touchMoveEvent.stoppedPropagation)
-      .toBe(true);
+    expect(touchMoveEvent.stoppedPropagation).toBe(true);
 
     touchRelease(draggableElement);
   });
@@ -181,14 +151,12 @@ describe('TouchSensor', () => {
   test('prevents clicking on touchend after dragging', () => {
     let touchEndEvent = touchRelease(draggableElement);
 
-    expect(touchEndEvent.defaultPrevented)
-      .toBe(false);
+    expect(touchEndEvent.defaultPrevented).toBe(false);
 
     touchStart(draggableElement);
     waitForDragDelay();
     touchEndEvent = touchRelease(draggableElement);
 
-    expect(touchEndEvent.defaultPrevented)
-      .toBe(true);
+    expect(touchEndEvent.defaultPrevented).toBe(true);
   });
 });

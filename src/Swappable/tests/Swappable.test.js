@@ -1,11 +1,4 @@
-import {
-  createSandbox,
-  clickMouse,
-  moveMouse,
-  releaseMouse,
-  waitForDragDelay,
-  DRAG_DELAY,
-} from 'helper';
+import {createSandbox, clickMouse, moveMouse, releaseMouse, waitForDragDelay, DRAG_DELAY} from 'helper';
 
 import Swappable from '..';
 
@@ -85,17 +78,13 @@ describe('Swappable', () => {
     moveMouse(secondItem);
     releaseMouse(swappable.source);
 
-    expect(swappableStart)
-      .toHaveBeenCalled();
+    expect(swappableStart).toHaveBeenCalled();
 
-    expect(swappableSwap)
-      .toHaveBeenCalled();
+    expect(swappableSwap).toHaveBeenCalled();
 
-    expect(swappableSwapped)
-      .toHaveBeenCalled();
+    expect(swappableSwapped).toHaveBeenCalled();
 
-    expect(swappableStop)
-      .toHaveBeenCalled();
+    expect(swappableStop).toHaveBeenCalled();
   });
 
   test('prevents drag when canceling sortable start event', () => {
@@ -107,8 +96,7 @@ describe('Swappable', () => {
     waitForDragDelay();
     moveMouse(secondItem);
 
-    expect(swappable.isDragging())
-      .toBe(false);
+    expect(swappable.isDragging()).toBe(false);
 
     releaseMouse(swappable.source);
   });
@@ -116,11 +104,9 @@ describe('Swappable', () => {
   test('swaps two first elements', () => {
     draggableElements = sandbox.querySelectorAll('li');
 
-    expect(draggableElements[0])
-      .toBe(firstItem);
+    expect(draggableElements[0]).toBe(firstItem);
 
-    expect(draggableElements[1])
-      .toBe(secondItem);
+    expect(draggableElements[1]).toBe(secondItem);
 
     clickMouse(firstItem);
     waitForDragDelay();
@@ -129,168 +115,100 @@ describe('Swappable', () => {
 
     draggableElements = sandbox.querySelectorAll('li');
 
-    expect(draggableElements[0])
-      .toBe(secondItem);
+    expect(draggableElements[0]).toBe(secondItem);
 
-    expect(draggableElements[1])
-      .toBe(firstItem);
+    expect(draggableElements[1]).toBe(firstItem);
   });
 
   test('swaps elements as you drag within a single container', () => {
-    draggableElements =
-      swappable.getDraggableElementsForContainer(containers[0]);
-    expect(draggableElements)
-      .toHaveOrder([
-        firstItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(containers[0]);
+    expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
     clickMouse(firstItem);
     waitForDragDelay();
     moveMouse(secondItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        secondItem,
-        // original firstItem
-        swappable.source,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([
+      secondItem,
+      // original firstItem
+      swappable.source,
+      thirdItem,
+      forthItem,
+    ]);
 
     moveMouse(thirdItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        thirdItem,
-        secondItem,
-        // original firstItem
-        swappable.source,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([
+      thirdItem,
+      secondItem,
+      // original firstItem
+      swappable.source,
+      forthItem,
+    ]);
 
     moveMouse(forthItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        forthItem,
-        secondItem,
-        thirdItem,
-        // original firstItem
-        swappable.source,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([
+      forthItem,
+      secondItem,
+      thirdItem,
+      // original firstItem
+      swappable.source,
+    ]);
 
     releaseMouse(swappable.source);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        forthItem,
-        secondItem,
-        thirdItem,
-        firstItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([forthItem, secondItem, thirdItem, firstItem]);
   });
 
   test('sorts elements as you drag between multiple containers', () => {
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        firstItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(secondContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        fifthItem,
-        sixthItem,
-        seventhItem,
-        eighthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(secondContainer);
+    expect(draggableElements).toHaveOrder([fifthItem, sixthItem, seventhItem, eighthItem]);
 
     clickMouse(firstItem);
     waitForDragDelay();
     moveMouse(fifthItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        fifthItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([fifthItem, secondItem, thirdItem, forthItem]);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(secondContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        // original firstItem
-        swappable.source,
-        sixthItem,
-        seventhItem,
-        eighthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(secondContainer);
+    expect(draggableElements).toHaveOrder([
+      // original firstItem
+      swappable.source,
+      sixthItem,
+      seventhItem,
+      eighthItem,
+    ]);
 
     moveMouse(eighthItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        eighthItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([eighthItem, secondItem, thirdItem, forthItem]);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(secondContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        fifthItem,
-        sixthItem,
-        seventhItem,
-        // original firstItem
-        swappable.source,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(secondContainer);
+    expect(draggableElements).toHaveOrder([
+      fifthItem,
+      sixthItem,
+      seventhItem,
+      // original firstItem
+      swappable.source,
+    ]);
 
     releaseMouse(swappable.source);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        eighthItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([eighthItem, secondItem, thirdItem, forthItem]);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(secondContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        fifthItem,
-        sixthItem,
-        seventhItem,
-        firstItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(secondContainer);
+    expect(draggableElements).toHaveOrder([fifthItem, sixthItem, seventhItem, firstItem]);
   });
 
   test('prevents sorting when sortable:sort event gets canceled', () => {
@@ -302,26 +220,12 @@ describe('Swappable', () => {
     waitForDragDelay();
     moveMouse(secondItem);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        swappable.source,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([swappable.source, secondItem, thirdItem, forthItem]);
 
     releaseMouse(swappable.source);
 
-    draggableElements =
-      swappable.getDraggableElementsForContainer(firstContainer);
-    expect(draggableElements)
-      .toHaveOrder([
-        firstItem,
-        secondItem,
-        thirdItem,
-        forthItem,
-      ]);
+    draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
+    expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
   });
 });

@@ -1,11 +1,7 @@
 import {closest} from 'shared/utils';
 import Sensor from '../Sensor';
 
-import {
-  DragStartSensorEvent,
-  DragMoveSensorEvent,
-  DragStopSensorEvent,
-} from '../SensorEvent';
+import {DragStartSensorEvent, DragMoveSensorEvent, DragStopSensorEvent} from '../SensorEvent';
 
 const onContextMenuWhileDragging = Symbol('onContextMenuWhileDragging');
 const onMouseDown = Symbol('onMouseDown');
@@ -19,7 +15,6 @@ const onMouseUp = Symbol('onMouseUp');
  * @extends Sensor
  */
 export default class MouseSensor extends Sensor {
-
   /**
    * MouseSensor constructor.
    * @constructs MouseSensor

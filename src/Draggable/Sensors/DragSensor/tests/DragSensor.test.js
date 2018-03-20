@@ -40,19 +40,16 @@ describe('DragSensor', () => {
   });
 
   test('mousedown handler adds draggable attribute', () => {
-    expect(draggableElement.draggable)
-      .toBeUndefined();
+    expect(draggableElement.draggable).toBeUndefined();
 
     clickMouse(draggableElement);
     waitForDragDelay();
 
-    expect(draggableElement.draggable)
-      .toBe(true);
+    expect(draggableElement.draggable).toBe(true);
 
     releaseMouse(draggableElement);
 
-    expect(draggableElement.draggable)
-      .toBe(false);
+    expect(draggableElement.draggable).toBe(false);
   });
 
   test('triggers `drag:start` sensor event on dragstart', () => {
@@ -65,8 +62,7 @@ describe('DragSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('cancels `drag:start` event when canceling sensor event', () => {
@@ -83,8 +79,7 @@ describe('DragSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveCanceledSensorEvent('drag:start');
+    expect(dragFlow).toHaveCanceledSensorEvent('drag:start');
   });
 
   test('does not trigger `drag:start` event releasing mouse before timeout', () => {
@@ -103,19 +98,13 @@ describe('DragSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:start');
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:stop');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('triggers `drag:move` event while moving the mouse', () => {
@@ -129,8 +118,7 @@ describe('DragSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:move');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:move');
   });
 
   test('triggers `drag:stop` event when releasing mouse', () => {
@@ -144,8 +132,7 @@ describe('DragSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('does not trigger `drag:start` event when clicking on none draggable element', () => {
@@ -156,8 +143,6 @@ describe('DragSensor', () => {
       waitForDragDelay();
     }
 
-    expect(dragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).not.toHaveTriggeredSensorEvent('drag:start');
   });
 });

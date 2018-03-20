@@ -4,15 +4,9 @@ import {Accessibility, Mirror, Scrollable, Announcement} from './Plugins';
 
 import Emitter from './Emitter';
 
-import {
-  MouseSensor,
-  TouchSensor,
-} from './Sensors';
+import {MouseSensor, TouchSensor} from './Sensors';
 
-import {
-  DraggableInitializedEvent,
-  DraggableDestroyEvent,
-} from './DraggableEvent';
+import {DraggableInitializedEvent, DraggableDestroyEvent} from './DraggableEvent';
 
 import {
   DragStartEvent,
@@ -76,7 +70,6 @@ export const defaultOptions = {
  * @module Draggable
  */
 export default class Draggable {
-
   /**
    * Default plugins draggable uses
    * @static
@@ -96,7 +89,6 @@ export default class Draggable {
    * @param {Object} options - Options for draggable
    */
   constructor(containers = [document.body], options = {}) {
-
     /**
      * Draggable containers
      * @property containers
@@ -484,10 +476,10 @@ export default class Draggable {
     target = closest(target, this.options.draggable);
     const withinCorrectContainer = closest(sensorEvent.target, this.containers);
     const overContainer = sensorEvent.overContainer || withinCorrectContainer;
-    const isLeavingContainer = this.currentOverContainer && (overContainer !== this.currentOverContainer);
-    const isLeavingDraggable = this.currentOver && (target !== this.currentOver);
-    const isOverContainer = overContainer && (this.currentOverContainer !== overContainer);
-    const isOverDraggable = withinCorrectContainer && target && (this.currentOver !== target);
+    const isLeavingContainer = this.currentOverContainer && overContainer !== this.currentOverContainer;
+    const isLeavingDraggable = this.currentOver && target !== this.currentOver;
+    const isOverContainer = overContainer && this.currentOverContainer !== overContainer;
+    const isOverDraggable = withinCorrectContainer && target && this.currentOver !== target;
 
     if (isLeavingDraggable) {
       const dragOutEvent = new DragOutEvent({

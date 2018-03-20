@@ -1,12 +1,4 @@
-import {
-  createSandbox,
-  triggerEvent,
-  waitForDragDelay,
-  DRAG_DELAY,
-  clickMouse,
-  moveMouse,
-  releaseMouse,
-} from 'helper';
+import {createSandbox, triggerEvent, waitForDragDelay, DRAG_DELAY, clickMouse, moveMouse, releaseMouse} from 'helper';
 
 import MouseSensor from '..';
 
@@ -42,8 +34,7 @@ describe('MouseSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('cancels `drag:start` event when canceling sensor event', () => {
@@ -57,8 +48,7 @@ describe('MouseSensor', () => {
       releaseMouse(draggableElement);
     }
 
-    expect(dragFlow)
-      .toHaveCanceledSensorEvent('drag:start');
+    expect(dragFlow).toHaveCanceledSensorEvent('drag:start');
   });
 
   test('does not trigger `drag:start` event releasing mouse before timeout', () => {
@@ -73,19 +63,13 @@ describe('MouseSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:start');
 
-    expect(hastyDragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(hastyDragFlow).not.toHaveTriggeredSensorEvent('drag:stop');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:start');
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('triggers `drag:move` event while moving the mouse', () => {
@@ -96,8 +80,7 @@ describe('MouseSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:move');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:move');
   });
 
   test('triggers `drag:stop` event when releasing mouse', () => {
@@ -108,8 +91,7 @@ describe('MouseSensor', () => {
       releaseMouse(document.body);
     }
 
-    expect(dragFlow)
-      .toHaveTriggeredSensorEvent('drag:stop');
+    expect(dragFlow).toHaveTriggeredSensorEvent('drag:stop');
   });
 
   test('does not trigger `drag:start` event when right clicking or holding ctrl or meta key', () => {
@@ -131,14 +113,8 @@ describe('MouseSensor', () => {
       releaseMouse(document.body);
     }
 
-    [
-      dragFlowWithRightClick,
-      dragFlowWithCtrlKey,
-      dragFlowWithMetaKey,
-    ].forEach((dragFlow) => {
-      expect(dragFlow)
-        .not
-        .toHaveTriggeredSensorEvent('drag:start');
+    [dragFlowWithRightClick, dragFlowWithCtrlKey, dragFlowWithMetaKey].forEach((dragFlow) => {
+      expect(dragFlow).not.toHaveTriggeredSensorEvent('drag:start');
     });
   });
 
@@ -148,24 +124,19 @@ describe('MouseSensor', () => {
       waitForDragDelay();
     }
 
-    expect(dragFlow)
-      .not
-      .toHaveTriggeredSensorEvent('drag:start');
+    expect(dragFlow).not.toHaveTriggeredSensorEvent('drag:start');
   });
 
   test('prevents context menu while dragging', () => {
     let contextMenuEvent = triggerEvent(draggableElement, 'contextmenu');
 
-    expect(contextMenuEvent)
-      .not
-      .toHaveDefaultPrevented();
+    expect(contextMenuEvent).not.toHaveDefaultPrevented();
 
     clickMouse(draggableElement);
     waitForDragDelay();
     contextMenuEvent = triggerEvent(draggableElement, 'contextmenu');
 
-    expect(contextMenuEvent)
-      .toHaveDefaultPrevented();
+    expect(contextMenuEvent).toHaveDefaultPrevented();
 
     releaseMouse(draggableElement);
   });
@@ -173,19 +144,14 @@ describe('MouseSensor', () => {
   test('prevents native drag when initiating drag flow', () => {
     let dragEvent = triggerEvent(draggableElement, 'dragstart');
 
-    expect(dragEvent)
-      .not
-      .toHaveDefaultPrevented();
+    expect(dragEvent).not.toHaveDefaultPrevented();
 
     clickMouse(draggableElement);
     waitForDragDelay();
     dragEvent = triggerEvent(draggableElement, 'dragstart');
 
-    expect(dragEvent)
-      .toHaveDefaultPrevented();
+    expect(dragEvent).toHaveDefaultPrevented();
 
     releaseMouse(document.body);
   });
 });
-
-

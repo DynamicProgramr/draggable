@@ -50,9 +50,13 @@ describe('Sensor', () => {
 
       let eventDispatched;
 
-      element.addEventListener('my:event', (event) => {
-        eventDispatched = event;
-      }, true);
+      element.addEventListener(
+        'my:event',
+        (event) => {
+          eventDispatched = event;
+        },
+        true,
+      );
 
       const returnValue = sensor.trigger(element, expectedEvent);
 

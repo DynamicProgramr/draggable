@@ -1,11 +1,6 @@
 import Sensor from '../Sensor';
 
-import {
-  DragStartSensorEvent,
-  DragMoveSensorEvent,
-  DragStopSensorEvent,
-  DragPressureSensorEvent,
-} from '../SensorEvent';
+import {DragStartSensorEvent, DragMoveSensorEvent, DragStopSensorEvent, DragPressureSensorEvent} from '../SensorEvent';
 
 const onMouseForceWillBegin = Symbol('onMouseForceWillBegin');
 const onMouseForceDown = Symbol('onMouseForceDown');
@@ -22,7 +17,6 @@ const onMouseForceGlobalChange = Symbol('onMouseForceGlobalChange');
  * @extends Sensor
  */
 export default class ForceTouchSensor extends Sensor {
-
   /**
    * ForceTouchSensor constructor.
    * @constructs ForceTouchSensor

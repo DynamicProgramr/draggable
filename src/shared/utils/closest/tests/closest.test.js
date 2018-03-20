@@ -1,6 +1,4 @@
-import {
-  createSandbox,
-} from 'helper';
+import {createSandbox} from 'helper';
 
 import closest from '../closest';
 
@@ -37,7 +35,9 @@ describe('utils', () => {
 
   test('should return null when function selector does not match', () => {
     const element = sandbox.querySelector('.leaf');
-    function selector() { return false; }
+    function selector() {
+      return false;
+    }
 
     expect(closest(element, selector)).toBe(null);
   });
@@ -52,24 +52,13 @@ describe('utils', () => {
     const element = sandbox.querySelector('.leaf');
 
     function callback(currentElement) {
-      return currentElement
-        .classList
-        .contains('leaf');
+      return currentElement.classList.contains('leaf');
     }
 
     expect(closest(element, callback)).toBe(element);
   });
 
-  [
-    '.twig',
-    'ul',
-    '.branch',
-    'section',
-    '.tree',
-    'div',
-    'body',
-    'document',
-  ].forEach((expectedMatchingSelector) => {
+  ['.twig', 'ul', '.branch', 'section', '.tree', 'div', 'body', 'document'].forEach((expectedMatchingSelector) => {
     test(`should return matched element when selector targets parent element matching selector ${expectedMatchingSelector}`, () => {
       const element = sandbox.querySelector('.leaf');
       const expected = sandbox.querySelector(expectedMatchingSelector);

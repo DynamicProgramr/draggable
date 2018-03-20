@@ -59,7 +59,9 @@ describe('Emitter', () => {
       const testEvent = new TestEvent({});
       const callbacks = [
         jest.fn(),
-        () => { throw new Error('Error'); },
+        () => {
+          throw new Error('Error');
+        },
         jest.fn(),
       ];
 
