@@ -62,7 +62,7 @@ describe('Sortable', () => {
     sandbox.parentNode.removeChild(sandbox);
   });
 
-  test('triggers events', () => {
+  it('triggers events', () => {
     const sortableStart = jest.fn();
     const sortableSort = jest.fn();
     const sortableSorted = jest.fn();
@@ -87,7 +87,7 @@ describe('Sortable', () => {
     expect(sortableStop).toHaveBeenCalled();
   });
 
-  test('prevents drag when canceling sortable start event', () => {
+  it('prevents drag when canceling sortable start event', () => {
     sortable.on('sortable:start', (sortableEvent) => {
       sortableEvent.cancel();
     });
@@ -101,7 +101,7 @@ describe('Sortable', () => {
     releaseMouse(sortable.source);
   });
 
-  test('sorts two first elements', () => {
+  it('sorts two first elements', () => {
     draggableElements = sandbox.querySelectorAll('li');
 
     expect(draggableElements[0]).toBe(firstItem);
@@ -120,7 +120,7 @@ describe('Sortable', () => {
     expect(draggableElements[1]).toBe(firstItem);
   });
 
-  test('sorts elements as you drag within a single container', () => {
+  it('sorts elements as you drag within a single container', () => {
     draggableElements = sortable.getDraggableElementsForContainer(containers[0]);
     expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
@@ -165,7 +165,7 @@ describe('Sortable', () => {
     expect(draggableElements).toHaveOrder([secondItem, thirdItem, forthItem, firstItem]);
   });
 
-  test('sorts elements as you drag between multiple containers', () => {
+  it('sorts elements as you drag between multiple containers', () => {
     draggableElements = sortable.getDraggableElementsForContainer(firstContainer);
     expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
@@ -213,7 +213,7 @@ describe('Sortable', () => {
     expect(draggableElements).toHaveOrder([fifthItem, sixthItem, seventhItem, eighthItem, firstItem]);
   });
 
-  test('prevents sorting when sortable:sort event gets canceled', () => {
+  it('prevents sorting when sortable:sort event gets canceled', () => {
     sortable.on('sortable:sort', (sortableEvent) => {
       sortableEvent.cancel();
     });
@@ -231,7 +231,7 @@ describe('Sortable', () => {
     expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
   });
 
-  test('sorts elements into empty container', () => {
+  it('sorts elements into empty container', () => {
     [fifthItem, sixthItem, seventhItem, eighthItem].forEach((item) => {
       clickMouse(item);
       waitForDragDelay();

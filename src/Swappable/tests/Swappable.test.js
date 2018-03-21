@@ -62,7 +62,7 @@ describe('Swappable', () => {
     sandbox.parentNode.removeChild(sandbox);
   });
 
-  test('triggers events', () => {
+  it('triggers events', () => {
     const swappableStart = jest.fn();
     const swappableSwap = jest.fn();
     const swappableSwapped = jest.fn();
@@ -87,7 +87,7 @@ describe('Swappable', () => {
     expect(swappableStop).toHaveBeenCalled();
   });
 
-  test('prevents drag when canceling sortable start event', () => {
+  it('prevents drag when canceling sortable start event', () => {
     swappable.on('swappable:start', (swappableEvent) => {
       swappableEvent.cancel();
     });
@@ -101,7 +101,7 @@ describe('Swappable', () => {
     releaseMouse(swappable.source);
   });
 
-  test('swaps two first elements', () => {
+  it('swaps two first elements', () => {
     draggableElements = sandbox.querySelectorAll('li');
 
     expect(draggableElements[0]).toBe(firstItem);
@@ -120,7 +120,7 @@ describe('Swappable', () => {
     expect(draggableElements[1]).toBe(firstItem);
   });
 
-  test('swaps elements as you drag within a single container', () => {
+  it('swaps elements as you drag within a single container', () => {
     draggableElements = swappable.getDraggableElementsForContainer(containers[0]);
     expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
@@ -165,7 +165,7 @@ describe('Swappable', () => {
     expect(draggableElements).toHaveOrder([forthItem, secondItem, thirdItem, firstItem]);
   });
 
-  test('sorts elements as you drag between multiple containers', () => {
+  it('sorts elements as you drag between multiple containers', () => {
     draggableElements = swappable.getDraggableElementsForContainer(firstContainer);
     expect(draggableElements).toHaveOrder([firstItem, secondItem, thirdItem, forthItem]);
 
@@ -211,7 +211,7 @@ describe('Swappable', () => {
     expect(draggableElements).toHaveOrder([fifthItem, sixthItem, seventhItem, firstItem]);
   });
 
-  test('prevents sorting when sortable:sort event gets canceled', () => {
+  it('prevents sorting when sortable:sort event gets canceled', () => {
     swappable.on('swappable:swap', (swappableEvent) => {
       swappableEvent.cancel();
     });

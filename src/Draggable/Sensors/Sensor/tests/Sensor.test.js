@@ -2,14 +2,14 @@ import Sensor from '../Sensor';
 
 describe('Sensor', () => {
   describe('#constructor', () => {
-    test('should initialize with default containers and options', () => {
+    it('should initialize with default containers and options', () => {
       const sensor = new Sensor();
 
       expect(sensor.containers).toMatchObject([]);
       expect(sensor.options).toMatchObject({});
     });
 
-    test('should initialize with containers and options', () => {
+    it('should initialize with containers and options', () => {
       const expectedContainers = ['expectedContainer'];
       const expectedOptions = {expectedOptions: true};
       const sensor = new Sensor(expectedContainers, expectedOptions);
@@ -20,7 +20,7 @@ describe('Sensor', () => {
   });
 
   describe('#attach', () => {
-    test('should return self', () => {
+    it('should return self', () => {
       const sensor = new Sensor();
 
       const returnValue = sensor.attach();
@@ -30,7 +30,7 @@ describe('Sensor', () => {
   });
 
   describe('#detach', () => {
-    test('should return self', () => {
+    it('should return self', () => {
       const sensor = new Sensor();
 
       const returnValue = sensor.attach();
@@ -40,7 +40,7 @@ describe('Sensor', () => {
   });
 
   describe('#trigger', () => {
-    test('should dispatch event on element', () => {
+    it('should dispatch event on element', () => {
       const sensor = new Sensor();
       const element = document.createElement('div');
       const expectedEvent = {

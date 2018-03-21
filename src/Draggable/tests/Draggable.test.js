@@ -33,7 +33,7 @@ describe('Draggable', () => {
   });
 
   describe('.Plugins', () => {
-    test('should be available statically', () => {
+    it('should be available statically', () => {
       expect(Draggable.Plugins).toBeDefined();
       expect(Draggable.Plugins.Mirror).toEqual(Mirror);
       expect(Draggable.Plugins.Accessibility).toEqual(Accessibility);
@@ -42,7 +42,7 @@ describe('Draggable', () => {
   });
 
   describe('#constructor', () => {
-    test('should be an instance of Draggable', () => {
+    it('should be an instance of Draggable', () => {
       const draggable = new Draggable(containers, {
         draggable: 'li',
         delay: 0,
@@ -51,7 +51,7 @@ describe('Draggable', () => {
       expect(draggable).toBeInstanceOf(Draggable);
     });
 
-    test('should initialize with default options', () => {
+    it('should initialize with default options', () => {
       const newInstance = new Draggable(containers);
 
       for (const key in defaultOptions) {
@@ -61,19 +61,19 @@ describe('Draggable', () => {
       }
     });
 
-    test('should set containers', () => {
+    it('should set containers', () => {
       const newInstance = new Draggable(containers);
 
       expect(newInstance.containers).toMatchObject(Array.prototype.slice.call(containers));
     });
 
-    test('should set single container if a list is not passed', () => {
+    it('should set single container if a list is not passed', () => {
       const newInstance = new Draggable(containers[0]);
 
       expect(newInstance.containers).toMatchObject([containers[0]]);
     });
 
-    test('should throw error if `containers` argument is wrong type', () => {
+    it('should throw error if `containers` argument is wrong type', () => {
       expect(() => {
         return new Draggable({});
       }).toThrow();
@@ -83,10 +83,10 @@ describe('Draggable', () => {
       }).toThrow();
     });
 
-    test('should attach default plugins', () => {
+    it('should attach default plugins', () => {
       const newInstance = new Draggable();
 
-      expect(newInstance.plugins.length).toBe(4);
+      expect(newInstance.plugins).toHaveLength(4);
 
       expect(newInstance.plugins[0]).toBeInstanceOf(Mirror);
 
@@ -97,12 +97,12 @@ describe('Draggable', () => {
       expect(newInstance.plugins[3]).toBeInstanceOf(Announcement);
     });
 
-    test('should attach custom plugins', () => {
+    it('should attach custom plugins', () => {
       const newInstance = new Draggable([], {
         plugins: [TestPlugin],
       });
 
-      expect(newInstance.plugins.length).toBe(5);
+      expect(newInstance.plugins).toHaveLength(5);
 
       const customPlugin = newInstance.plugins[4];
 
@@ -113,23 +113,23 @@ describe('Draggable', () => {
       expect(customPlugin.detachFunction).not.toHaveBeenCalled();
     });
 
-    test('should attach sensors', () => {
+    it('should attach sensors', () => {
       const newInstance = new Draggable([], {
         native: false,
       });
 
-      expect(newInstance.sensors.length).toBe(2);
+      expect(newInstance.sensors).toHaveLength(2);
 
       expect(newInstance.sensors[0]).toBeInstanceOf(MouseSensor);
 
       expect(newInstance.sensors[1]).toBeInstanceOf(TouchSensor);
     });
 
-    test('should trigger DraggableInitializedEvent on init', () => {
+    it('should trigger DraggableInitializedEvent on init', () => {
       const spy = jest.spyOn(Draggable.prototype, 'trigger');
       const newInstance = new Draggable();
 
-      expect(spy.mock.calls.length).toBe(1);
+      expect(spy.mock.calls).toHaveLength(1);
 
       expect(spy.mock.calls[0][0]).toBeInstanceOf(DraggableInitializedEvent);
 
@@ -141,7 +141,7 @@ describe('Draggable', () => {
   });
 
   describe('#destroy', () => {
-    test('triggers `draggable:destroy` event on destroy', () => {
+    it('triggers `draggable:destroy` event on destroy', () => {
       const newInstance = new Draggable();
       const callback = jest.fn();
 
@@ -158,7 +158,7 @@ describe('Draggable', () => {
       expect(call.draggable).toBe(newInstance);
     });
 
-    test('should call Plugin#detach once on each of provided plugins', () => {
+    it('should call Plugin#detach once on each of provided plugins', () => {
       const plugins = [TestPlugin, TestPlugin, TestPlugin];
       const newInstance = new Draggable([], {
         plugins,
@@ -180,7 +180,7 @@ describe('Draggable', () => {
       expect(expectedPlugins[6].detachFunction).toHaveBeenCalledTimes(1);
     });
 
-    test('should remove all sensor event listeners', () => {
+    it('should remove all sensor event listeners', () => {
       document.removeEventListener = jest.fn();
 
       const newInstance = new Draggable();
@@ -199,7 +199,7 @@ describe('Draggable', () => {
   });
 
   describe('#on', () => {
-    test('should add an event handler to the list of callbacks', () => {
+    it('should add an event handler to the list of callbacks', () => {
       const newInstance = new Draggable();
       function stubHandler() {
         /* do nothing */
@@ -214,7 +214,7 @@ describe('Draggable', () => {
       expect(newInstance.emitter.callbacks['my:event']).toMatchObject([stubHandler]);
     });
 
-    test('should return draggable instance', () => {
+    it('should return draggable instance', () => {
       const newInstance = new Draggable();
       function stubHandler() {
         /* do nothing */
@@ -229,7 +229,7 @@ describe('Draggable', () => {
   });
 
   describe('#off', () => {
-    test('should remove event handler from the list of callbacks', () => {
+    it('should remove event handler from the list of callbacks', () => {
       const newInstance = new Draggable();
       function stubHandler() {
         /* do nothing */
@@ -246,7 +246,7 @@ describe('Draggable', () => {
       expect(newInstance.emitter.callbacks['my:event']).toMatchObject([]);
     });
 
-    test('should return draggable instance', () => {
+    it('should return draggable instance', () => {
       const newInstance = new Draggable();
       function stubHandler() {
         /* do nothing */
@@ -263,7 +263,7 @@ describe('Draggable', () => {
   });
 
   describe('#trigger', () => {
-    test('should invoke bound event', () => {
+    it('should invoke bound event', () => {
       const newInstance = new Draggable(containers);
       const handler = jest.fn();
       const expectedEvent = new Event('my:event');
@@ -272,16 +272,16 @@ describe('Draggable', () => {
 
       newInstance.trigger(expectedEvent);
 
-      expect(handler.mock.calls.length).toBe(1);
+      expect(handler.mock.calls).toHaveLength(1);
 
-      expect(handler.mock.calls[0].length).toBe(1);
+      expect(handler.mock.calls[0]).toHaveLength(1);
 
       expect(handler.mock.calls[0][0]).toBe(expectedEvent);
     });
   });
 
   describe('#getDraggableElementsForContainer', () => {
-    test('returns draggable elements, excluding mirror and original source', () => {
+    it('returns draggable elements, excluding mirror and original source', () => {
       const newInstance = new Draggable(containers, {
         draggable: 'li',
       });
@@ -295,13 +295,13 @@ describe('Draggable', () => {
 
       const containerChildren = newInstance.getDraggableElementsForContainer(draggableElement.parentNode);
 
-      expect(containerChildren.length).toEqual(2);
+      expect(containerChildren).toHaveLength(2);
 
       triggerEvent(draggableElement, 'mouseup', {button: 0});
     });
   });
 
-  test('triggers `drag:start` drag event on mousedown', () => {
+  it('triggers `drag:start` drag event on mousedown', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -325,7 +325,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup');
   });
 
-  test('should trigger `drag:start` drag event on dragstart', () => {
+  it('should trigger `drag:start` drag event on dragstart', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -351,7 +351,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup');
   });
 
-  test('cleans up when `drag:start` event is canceled', () => {
+  it('cleans up when `drag:start` event is canceled', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -380,7 +380,7 @@ describe('Draggable', () => {
     expect(originalSource.style.display).toEqual('');
   });
 
-  test('triggers `drag:move` drag event on mousedown', () => {
+  it('triggers `drag:move` drag event on mousedown', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -414,7 +414,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup');
   });
 
-  test('triggers `drag:stop` drag event on mouseup', () => {
+  it('triggers `drag:stop` drag event on mouseup', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -438,7 +438,7 @@ describe('Draggable', () => {
     expect(call).toBeInstanceOf(DragStopEvent);
   });
 
-  test('adds `source:dragging` classname to draggable element on mousedown', () => {
+  it('adds `source:dragging` classname to draggable element on mousedown', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -455,7 +455,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup');
   });
 
-  test('removes `source:dragging` classname from draggable element on mouseup', () => {
+  it('removes `source:dragging` classname from draggable element on mouseup', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -476,7 +476,7 @@ describe('Draggable', () => {
     expect(source.classList).not.toContain('draggable-source--is-dragging');
   });
 
-  test('removes `source:dragging` classname from draggable element on dragEvent.cancel()', () => {
+  it('removes `source:dragging` classname from draggable element on dragEvent.cancel()', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -499,7 +499,7 @@ describe('Draggable', () => {
     expect(source.classList).not.toContain('draggable-source--is-dragging');
   });
 
-  test('adds `body:dragging` classname to body on mousedown', () => {
+  it('adds `body:dragging` classname to body on mousedown', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -517,7 +517,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup');
   });
 
-  test('removes `body:dragging` classname from body on mouseup', () => {
+  it('removes `body:dragging` classname from body on mouseup', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -537,7 +537,7 @@ describe('Draggable', () => {
     expect(document.body.classList).not.toContain('draggable--is-dragging');
   });
 
-  test('removes `body:dragging` classname from body on dragEvent.cancel()', () => {
+  it('removes `body:dragging` classname from body on dragEvent.cancel()', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -558,7 +558,7 @@ describe('Draggable', () => {
     expect(document.body.classList).not.toContain('draggable--is-dragging');
   });
 
-  test('adds `container:placed` classname to draggable container element on mouseup', () => {
+  it('adds `container:placed` classname to draggable container element on mouseup', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -576,7 +576,7 @@ describe('Draggable', () => {
     expect(containers[0].classList).toContain('draggable-container--placed');
   });
 
-  test('removes `container:placed` classname from draggable container element on mouseup after delay', () => {
+  it('removes `container:placed` classname from draggable container element on mouseup after delay', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -599,7 +599,7 @@ describe('Draggable', () => {
     expect(containers[0].classList).not.toContain('draggable-container--placed');
   });
 
-  test('adds `container:dragging` classname to draggable container element on mousedown', () => {
+  it('adds `container:dragging` classname to draggable container element on mousedown', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -617,7 +617,7 @@ describe('Draggable', () => {
     triggerEvent(draggableElement, 'mouseup', {button: 0});
   });
 
-  test('removes `container:dragging` classname from draggable container element on mouseup', () => {
+  it('removes `container:dragging` classname from draggable container element on mouseup', () => {
     (() =>
       new Draggable(containers, {
         draggable: 'li',
@@ -637,7 +637,7 @@ describe('Draggable', () => {
     expect(containers[0].classList).not.toContain('draggable-container--is-dragging');
   });
 
-  test('removes `container:dragging` classname from draggable container element on dragEvent.cancel()', () => {
+  it('removes `container:dragging` classname from draggable container element on dragEvent.cancel()', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -657,7 +657,7 @@ describe('Draggable', () => {
     expect(containers[0].classList).not.toContain('draggable-container--is-dragging');
   });
 
-  test('adds and removes `source:original` on start and stop', () => {
+  it('adds and removes `source:original` on start and stop', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });
@@ -676,7 +676,7 @@ describe('Draggable', () => {
     expect(draggableElement.classList.contains(newInstance.getClassNameFor('source:original'))).toBeFalsy();
   });
 
-  test('`drag:out:container` event specifies leaving container', () => {
+  it('`drag:out:container` event specifies leaving container', () => {
     const newInstance = new Draggable(containers, {
       draggable: 'li',
     });

@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     'plugin:shopify/esnext',
+    'plugin:shopify/jest',
     'plugin:shopify/prettier',
   ],
   env: {
