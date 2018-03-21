@@ -103,7 +103,7 @@ export default class Droppable extends Draggable {
     this.lastDroppable = null;
 
     /**
-     * Initial droppable element that the source was drag from
+     * Initial droppable element that the source was dragged from
      * @property initialDroppable
      * @type {HTMLElement}
      */
@@ -273,7 +273,7 @@ export default class Droppable extends Draggable {
   }
 
   /**
-   * Returns closest droppable element for even target
+   * Returns closest droppable element for event target
    * @private
    * @param {HTMLElement} target - Event target
    * @return {HTMLElement|null}
