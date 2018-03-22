@@ -3,7 +3,9 @@
 /// Main
 ////
 
+@import 'utils/shared/layout';
 @import 'components/MobileNav/props';
+@import 'props';
 
 .Main {
   padding: $mobile-nav-padding-top get-spacing(tight) get-spacing(looser);
@@ -21,10 +23,35 @@
       get-spacing(fat)
       get-spacing(fattest)
       get-spacing(fat)
-      (get-layout-length(sidebar) + get-spacing(fattest));
+      $main-padding-left-desktop;
   }
 }
 
 .MainInterior {
   @include centered-width(get-layout-length(main-interior));
+}
+
+///
+/// Overlay grid
+.Main {
+  // positioned parent will be `body`
+  &::before {
+    content: '';
+    display: block; // none;
+    pointer-events: none;
+
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: get-spacing(tight);
+    right: get-spacing(tight);
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(black, 0.2) 0%,
+      rgba(black, 0.2) $main-overlay-column,
+      rgba(black, 0) $main-overlay-column,
+      rgba(black, 0) $main-overlay-column + $main-overlay-gutter
+    );
+  }
 }

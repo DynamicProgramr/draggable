@@ -1,0 +1,14 @@
+////
+/// Components
+/// Main props
+////
+
+@import 'utils/shared/functions';
+@import 'utils/shared/layout';
+
+$main-padding-left-desktop: get-layout-length(sidebar) + get-spacing(fattest);
+
+// (93px / 800px) * 100% = 11.625%
+$main-overlay-column: 11.625%; // (get-layout-length(column) / columns(8)) * 100%;
+// (8px / 800px) * 100% = 1%
+$main-overlay-gutter: 1%; // (get-layout-length(gutter) / columns(8)) * 100%;

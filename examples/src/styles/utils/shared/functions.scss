@@ -15,3 +15,16 @@
 
   @return $column-width + $gutter-width;
 }
+
+// Row based height layout
+// @param {Number} $count - Number of rows this element should span
+@function rows($count: 1) {
+  @if type-of($count) != number or $count < 1 {
+    @error 'You did not provide a proper row count.';
+  }
+
+  $row-height: $count * get-layout-length(row);
+  $gutter-height: ($count - 1) * get-layout-length(gutter);
+
+  @return $row-height + $gutter-height;
+}
